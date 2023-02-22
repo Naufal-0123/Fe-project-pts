@@ -44,9 +44,9 @@ export default function Reset() {
   };
 
   return (
-    <div className="bg-gray-700 h-screen w-screen flex flex-col justify-center">
+    <div className="bg-zinc-900 h-screen w-screen flex flex-col justify-center">
       <form onSubmit={handleSubmit} className="space-y-5">
-        <h1 className="text-white text-[30px] text-center font-bold">
+        <h1 className="text-fuchsia-600 text-[30px] text-center font-bold">
           RESET PASSWORD
         </h1>
         <div className="flex flex-col justify-center items-center space-y-5">
@@ -57,7 +57,7 @@ export default function Reset() {
             type={"password"}
             placeholder="Enter New Password"
           />
-          <p className="text-green-400">{errorPassword}</p>
+          <p className="text-pink-600 font-bold">{errorPassword}</p>
           <Input
             required
             onChange={handleChange}
@@ -66,7 +66,7 @@ export default function Reset() {
             type={"password"}
             placeholder="Confirm Your Password"
           />
-          <p className="text-green-400">{errorPassword}</p>
+          <p className="text-pink-600 font-bold">{errorPassword}</p>
           <Button title={isLoading ? "PROCESS" : "RESET"} />
         </div>
       </form>

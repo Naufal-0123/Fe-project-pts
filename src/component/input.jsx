@@ -6,7 +6,7 @@ export default function Input({label, isError, textError, ...props}) {
         <label className="label" htmlFor={label}>
           {label}
         </label>
-        <input {...props}  className="w-96 p-2 px-3 bg-transparent border border-green-500 outline-none rounded-lg text-white font-bold" id={label}/>
+        <input {...props}  className="w-80 p-2 bg-transparent border border-pink-900 outline-none rounded-lg text-pink-900 font-bold text-center" id={label}/>
         {isError && 
         <p className="error">
          {textError}
