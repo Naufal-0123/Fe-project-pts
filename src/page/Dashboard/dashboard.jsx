@@ -1,64 +1,62 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Dashboard() {
-  return (
-    <div className="bg-zinc-900 h-screen w-screen flex flex-col">
-      <div className="h-24 bg-pink-600 border border-fuchsia-900 outline-none rounded-br-2xl justify-center">
+  const username = useSelector((state)=> state.authProses.username)
+
+  return(  
+    <div className="bg-orange-400 h-screen w-screen flex flex-col">
+      <div className="h-24 bg-white border border-white outline-none rounded-br-lg justify-center">
         <div className="flex flex-row justify-between">
           <div className="justify-left">
-            <h1 className="m-5 text-pink-900 text-[25px] text-right font-bold">
+            <h1 className="m-4 text-black text-[25px] text-right font-bold">
               ADMINISTRATOR
             </h1>
           </div>
           <div className="text-center">
-            <h1 className="m-5 text-pink-900 text-[20px] text-right font-bold">
-              Naufal Dzakwan
+            <h1 className="m-5 text-black text-[20px] text-right font-bold">
+              {username}
             </h1>
           </div>
         </div>
       </div>
       <div className="h-full flex">
-        <div className="w-[20%] h-full bg-pink-600 border border-fuchsia-900 outline-none justify-center">
+        <div className="w-[12%] h-full bg-white border border-white outline-none justify-center">
           <div className="flex flex-col justify-center mt-5">
-            <a
-              className="text-center text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/dashboard/dashboard"
+            <Link
+              className="text-center text-white p-2 bg-orange-400 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
+              to={"/dashboard/dashboard"}
             >
               Dashboard
-            </a>
-            <a
-              className="text-center text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/dashboard/users"
+            </Link>
+            <Link
+              className="text-center text-white p-2 bg-orange-400 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
+              to={"/dashboard/users"}
             >
-              User
-            </a>
-            <a
-              className="text-center text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/dashboard/officer"
+              Masyarakat
+            </Link>
+            <Link
+              className="text-center text-white p-2 bg-orange-400 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
+              to={"/dashboard/officer"}
             >
-              Officer
-            </a>
-            <a
-              className="text-center text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/dashboard/product"
+              Petugas
+            </Link>
+            <Link
+              className="text-center text-white p-2 bg-orange-400 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
+              to={"/dashboard/product"}
             >
-              Product
-            </a>
-            <a
-              className="text-center text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/dashboard/addProduct"
-            >
-              Add Product
-            </a>
+              Barang
+            </Link>
+           
           </div>
-          <div className="flex flex-col justify-end mt-56">
-            <a
-              className="text-center text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/login"
+          <div className="flex flex-col justify-end mt-[90%]">
+            <Link
+              className="text-center text-white p-2 bg-orange-400 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
+              to={"/login"}
             >
               Log Out
-            </a>
+            </Link>
           </div>
         </div>
         <div className="w-[80%]">

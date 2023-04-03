@@ -1,5 +1,5 @@
 const initialState = {
-    email: "",
+    username: "",
     password: "",
     isAuth: false,
   };
@@ -8,7 +8,7 @@ const initialState = {
     if (action.type === "login") {
       return {
         ...state,
-        email: action.email,
+        username: action.username,
         password: action.password,  
         isAuth: action.isAuth,
       };

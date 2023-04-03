@@ -1,20 +1,30 @@
 import React from 'react';
 
-export default function Select({label, children, isError, textError, ...props}) {
-    return(
-        <div className="input grid">
-        <label className="label" htmlFor={label}>
-          {label}
-        </label>
-        <select {...props}  className="w-96 p-2 px-3 bg-transparent border border-green-500 outline-none rounded-lg text-white font-bold" id={label}>
+const Select = ({
+  id,
+  name,
+  selectStyle,
+  isError,
+  textError,
+  value,
+  children,
+  ...props
+}) => {
+  return (
+    <div className="w-full">
+      <select
+        {...props}
+        name={name}
+        value={value}
+        id={id}
+        className={`${selectStyle} focus:outline-none poppins transition-all ease-in-out rounded-lg bg-transparent border border-pink-900 text-black text-center w-80 p-2`}
+      >
         {children}
-        </select>
-        {isError && 
-        <p className="error">
-         {textError}
-        </p>
-        }
+      </select>
+      {isError && <p className="text-red-500 italic">{textError}</p>}
+    </div>
+  );
+};
 
-      </div>
-    )
-}
+
+export default Select;

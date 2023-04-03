@@ -1,24 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { authRegister } from "../Redux/action";
-import Input from "../component/input";
-import Button from "../component/button";
-import "../styles/styles.css";
+import { authRegisterPetugas } from "../../../Redux/action";
+import Input from "../../../component/input";
+import Button from "../../../component/button";
+import Select from "../../../component/select";
+import "../../../styles/styles.css";
 
-export default function RegisterAdmin() {
+export default function Officers() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const [errorName, setErrorName] = React.useState("");
+  const [errornamaPetugas, setErrornamaPetugas] = React.useState("");
+  const [errorUsername, setErrorUsername] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState("");
-  const [errorConfirmPass, setErrorConfirmPass] = React.useState("");
   const [payload, setPayload] = React.useState({
-    name: "",
-    email: "",
+    namaPetugas: "",
+    username: "",
     password: "",
-    confimPass: "",
-    status: "",
-    jenisKelamin: "",
+    level: "",
   });
 
   const handleChange = (e) => {
@@ -37,10 +36,10 @@ export default function RegisterAdmin() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const response = await dispatch(authRegister(payload));
+      const response = await dispatch(authRegisterPetugas(payload));
       console.log("response", response);
       if (response?.status === "Success") {
-        navigate("/login", { replace: true });
+        navigate("/dashboard/officer", { replace: true });
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -55,13 +54,13 @@ export default function RegisterAdmin() {
 
         Toast.fire({
           icon: "success",
-          title: response?.msg,
+          title: response?.message,
         });
       } else {
         setMessageError(response?.response?.data?.msg);
-        setErrorName(response?.response?.data?.errors?.name?.msg);
+        setErrornamaPetugas(response?.response?.data?.errors?.namaPetugas.msg);
+        setErrorUsername(response?.response?.data?.errors?.username?.msg);
         setErrorPassword(response?.response?.data?.errors?.password?.msg);
-        setErrorConfirmPass(response?.response?.data?.errors?.confimPass?.msg);
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -87,35 +86,32 @@ export default function RegisterAdmin() {
     console.log("jalan cuy");
   };
   return (
-    <div className="bg-zinc-900 h-screen w-screen flex flex-col">
+    <div className="mt-11">
       <form className="space-y-5" onSubmit={handleSubmit}>
-        <div className="h-24 bg-[#E96479] border border-fuchsia-900 outline-none rounded-b-2xl justify-center">
-          <h1 className="m-5 text-pink-900 text-[30px] text-center font-bold">
-            LANG-ON
-          </h1>
-        </div>
         <div className="flex justify-center items-center">
-          <div className="w-96 h-max bg-pink-600 border border-fuchsia-900 outline-none rounded-xl  justify-center">
-            <h1 className="text-pink-900 text-[30px] text-center font-bold mt-5 mb-5">
+          <div className="w-96 bg-white outline-none rounded-xl justify-center">
+            <h1 className="text-black text-[30px] text-center font-bold mt-1 mb-2">
               REGISTER ADMIN
             </h1>
-            <div className="flex flex-col justify-center items-center space-y-4">
+            <div className="flex flex-col justify-center items-center space-y-2">
               <Input
                 onChange={handleChange}
-                value={payload.name}
-                name={"name"}
+                value={payload.namaPetugas}
+                name={"namaPetugas"}
                 type={"text"}
-                placeholder="Enter Officers Name"
+                placeholder="Enter Officer Name"
               />
-              <p className="text-pink-600 font-bold">{errorName}</p>
+              <p className="text-red-500 font-bold text-sm">
+                {errornamaPetugas}
+              </p>
               <Input
                 onChange={handleChange}
-                value={payload.email}
-                name={"name"}
+                value={payload.username}
+                name={"username"}
                 type={"text"}
-                placeholder="Enter Your Username"
+                placeholder="Enter Your Name"
               />
-              <p className="text-pink-600 font-bold">{errorName}</p>
+              <p className="text-red-500 font-bold text-sm">{errorUsername}</p>
               <Input
                 onChange={handleChange}
                 value={payload.password}
@@ -123,33 +119,21 @@ export default function RegisterAdmin() {
                 type={"password"}
                 placeholder="Enter Your Password"
               />
-              <p className="text-pink-600 font-bold">{errorPassword}</p>
-              <Input
+              <p className="text-red-500 font-bold text-sm">{errorPassword}</p>
+              <Select
                 onChange={handleChange}
-                value={payload.password_confirmation}
-                name={"password_confirmation"}
-                type={"password"}
-                placeholder="Confirm Your Password"
-              />
-              <p className="text-pink-600 font-bold">{errorConfirmPass}</p>
-              <Button title={isLoading ? "PROCESS" : "REGISTER"} />
-            </div>
-            <div className="flex flex-row justify-center ">
-              <p className="text-pink-800 text-lg font-bold m-5">
-                Have an account ?
-              </p>
-              <a
-                className="text-pink-900 text-lg font-bold hover:text-bold-5 m-5"
-                href="/login"
+                id={"levelId"}
+                name={"levelId"}
+                value={payload.levelId}
+                selectStyle={"ml-8"}
               >
-                Login
-              </a>
-              <a
-              className="text-pink-600 p-2 bg-pink-900 rounded-lg text-lg font-bold hover:text-bold-5 m-3"
-              href="/register"
-            >
-              BACK
-            </a>
+                <option value="">Pilih Role Anda</option>
+                <option value="1">Administrator</option>
+                <option value="2">Petugas</option>
+              </Select>
+             <div className="p-5">
+             <Button title={isLoading ? "PROCESS" : "REGISTER"} />
+             </div>
             </div>
           </div>
         </div>
@@ -157,3 +141,4 @@ export default function RegisterAdmin() {
     </div>
   );
 }
+// Validate Username

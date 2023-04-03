@@ -1,15 +1,15 @@
-import { authMeProcess, forgotProses, loginProses, registerProses, resetProses } from "../API/auth";
+import { authMeProcess, forgotProses, loginProses, registerProsesMasyarakat, registerProsesPetugas, resetProses } from "../API/auth";
 import Cookies from "js-cookie";
 
-export function authMe(payload) {
+export function authMe() {
   return async (dispatch) => {
     try {
-      let response = await authMeProcess();
+      let response = await loginProses();
       let data = response.data;
       dispatch({
         type: "login",
-        email: data?.user?.email,
-        password: data?.user?.password,
+        username: data?.data?.username,
+        password: data?.data?.password,
         isAuth: true,
       });
       Cookies.set("myapps_token", data?.token);
@@ -27,9 +27,10 @@ export function authLogin(payload) {
       let response = await loginProses(payload);
       let data = response.data;
       console.log(data);
+      console.log(data.token)
       dispatch({
         type: "login",
-        email: data?.user?.email,
+        username: data?.user?.username,
         password: data?.user?.password,
         isAuth: true,
       });
@@ -42,22 +43,27 @@ export function authLogin(payload) {
   };
 }
 
-export function authRegister(payload) {
+export function authRegisterMasyarakat(payload) {
   return async (dispatch) => {
     try {
-      let response = await registerProses(payload);
+      let response = await registerProsesMasyarakat(payload);
       let data = response.data;
       console.log(data);
-      dispatch({
-        type: "login",
-        name: data?.user?.name,
-        email: data?.user?.email,
-        password: data?.user?.password,
-        confirmPass: data?.user?.confirmPass,
-        status: data?.user?.status,
-        jenisKelamin: data?.user?.jenisKelamin,
-        isAuth: true,
-      });
+      Cookies.set("myapps_token", data?.token);
+      return data;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  };
+}
+
+export function authRegisterPetugas(payload) {
+  return async (dispatch) => {
+    try {
+      let response = await registerProsesPetugas(payload);
+      let data = response.data;
+      console.log(data);
       Cookies.set("myapps_token", data?.token);
       return data;
     } catch (err) {

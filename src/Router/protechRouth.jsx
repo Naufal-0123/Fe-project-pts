@@ -34,6 +34,6 @@ export default function ProtechRouth({ children }) {
     return <div>Loading</div>;
   } else {
     console.log("auth", auth);
-    return auth !== undefined ? children : <Navigate to={"/login"} />;
+    // return auth !== undefined ? children : <Navigate to={"/login"} />;
   }
 }
